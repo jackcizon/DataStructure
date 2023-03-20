@@ -1,5 +1,5 @@
-#ifndef SCIRCULAR_H
-#define SCIRCULAR_H
+#ifndef SINGLE_CIRCULAR_LINKED_LIST_H
+#define SINGLE_CIRCULAR_LINKED_LIST_H
 
 
 #include <stddef.h>
