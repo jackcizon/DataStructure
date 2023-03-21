@@ -1,5 +1,5 @@
-#ifndef SINGLE_LINKED_LIST_H
-#define SINGLE_LINKED_LIST_H
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -43,7 +43,8 @@ typedef char* string;
     __remove__(T);\
     __search__(T);\
     __index__(T);\
-    __pop__(T);
+    __pop__(T);\
+    __reverse__(T);
 
 
 //List Constructor
@@ -124,6 +125,34 @@ typedef char* string;
             return false;\
         }\
     }
+
+
+#define __reverse__(T)\
+    void T##_reverse(T##_list* L){\
+        /*we will use two pointer, current and next, and change L->head each time while moving*/\
+        assert(L->head);\
+        if(L->size == 1){\
+            return;\
+        }\
+        else{\
+            T##_node* current = NULL;\
+            T##_node* next = NULL;\
+            /*draw a graph to understand*/\
+            while(L->head != NULL){\
+                next = L->head->next;\
+                L->head->next = current;\
+                current = L->head;\
+                /*special case when next is null*/\
+                if(next != NULL){\
+                    L->head = next;\
+                }\
+                else{\
+                    return;\
+                }\
+            }\
+        }\
+    }
+
 
 //remove the first if found
 #define __remove__(T)\
