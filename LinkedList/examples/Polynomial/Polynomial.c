@@ -141,7 +141,7 @@ void substract(polynomial* minuend, polynomial* subtrahend, polynomial* differen
 }
 
 
-//Quotient Divisor Division operation
+//Quotient Divisor Division operation, this methods seems wrong, beacuse linked list cannot implement this operation correctly
 void divide(polynomial* dividend, polynomial* divisor, polynomial* quotient)
 {
     inverse(divisor);
@@ -179,26 +179,47 @@ void negate(polynomial* P)
 //not good need optimize, not now
 void display(polynomial* P)
 {
-    assert(P->head);
     node* current = P->head;
-    printf(" ");
-    while(current)
+    bool printed_term = false;
+
+    while(current != NULL)
     {
-        //we need modify if data not in first palce
-        if(current != P->head)
+        if(current->data != 0)
         {
-            printf(" + %d", current->data);
+            if(printed_term && current->data > 0)
+            {
+                printf(" + ");
+            }
+
+            if(current->data == -1 && current->power != 0)
+            {
+                printf("-");
+            }
+            else if(current->data != 1 || current->power == 0)
+            {
+                printf("%d", current->data);
+            }
+
+            if(current->power == 1)
+            {
+                printf("x");
+            }
+            else if(current->power > 1)
+            {
+                printf("x^%d", current->power);
+            }
+
+            printed_term = true;
         }
-        else
-        {
-            printf("%d", current->data);
-        }
-        if(current->power != 0)
-        {
-            printf("x^%d", current->power);
-        }
+
         current = current->next;
     }
 
-    puts("");
+    if(!printed_term)
+    {
+        printf("0");
+    }
+
+    printf("\n");
 }
+
