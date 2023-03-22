@@ -1,10 +1,22 @@
 CFLAGS = -w -g
 
-abstract: Abstract_Main.o abstract.o
-	gcc $(CFLAGS) -o abstract.exe Abstract_Main.o abstract.o
+CC = gcc 
 
-Abstract_Main.o: Abstract_Main.c abstract.h
-	gcc $(CFLAGS) -c Abstract_Main.c 
+EXECUTABLE = AbstractClass
 
-abstract.o: abstract.c abstract.h
-	gcc $(CFLAGS) -c abstract.c 
+OBJECTS = Abstract_Main.o abstract.o
+
+ALL = $(OBJECTS) $(EXECUTABLE).exe
+
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@ 
+	@echo "generate $@ success."
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+	@echo "compile $@ success"
+
+clean:
+	del -f $(ALL)
+	@echo "del '$(ALL)' success."
