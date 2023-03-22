@@ -1,10 +1,24 @@
 CFLAGS = -w -g
 
-share_stack: Share_Stack_Main.o share_stack.o
-	gcc $(CFLAGS) -o share_stack.exe Share_Stack_Main.o share_stack.o
+CC = gcc 
 
-Share_Stack_Main.o: Share_Stack_Main.c share_stack.h
-	gcc $(CFLAGS) -c Share_Stack_Main.c
+EXECUTABLE = ShareStack
 
-share_stack.o: share_stack.c share_stack.h
-	gcc $(CFLAGS) -c share_stack.c
+OBJECTS = Share_Stack_Main.o share_stack.o
+
+ALL = $(OBJECTS) $(EXECUTABLE).exe
+
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@ 
+	@echo "generate $@ success."
+	del $(OBJECTS)
+#if don't want .o file, del them
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+	@echo "compile $@ success"
+
+clean:
+	del -f $(ALL)
+	@echo "del '$(ALL)' success."
