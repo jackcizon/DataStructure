@@ -1,10 +1,22 @@
 CFLAGS = -w -g
 
-array: Array_Main.o array.o
-	gcc $(CFLAGS) -o array Array_Main.o array.o
+CC = gcc 
 
-Array_Main.o: Array_Main.c array.h
-	gcc $(CFLAGS) -c Array_Main.c
+EXECUTABLE = DynamicArray
 
-array.o: array.c array.h
-	gcc $(CFLAGS) -c array.c
+OBJECTS = Array_Main.o array.o
+
+ALL = $(OBJECTS) $(EXECUTABLE).exe
+
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@ 
+	@echo "generate $@ success."
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+	@echo "compile $@ success"
+
+clean:
+	del -f $(ALL)
+	@echo "del '$(ALL)' success."
