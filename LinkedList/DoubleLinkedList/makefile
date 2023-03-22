@@ -1,12 +1,22 @@
 CFLAGS = -w -g
 
-double: Double_Main.o double_linked_list.o
-	gcc $(CFLAGS) -o double.exe Double_Main.o double_linked_list.o
+CC = gcc 
 
-Double_Main.o: Double_Main.c double_linked_list.h
-	gcc $(CFLAGS) -c Double_Main.c
+EXECUTABLE = Double
 
-double_linked_list.o: double_linked_list.c double_linked_list.h
-	gcc $(CFLAGS) -c double_linked_list.c
+OBJECTS = Double_Main.o double_linked_list.o
 
-	
+ALL = $(OBJECTS) $(EXECUTABLE).exe
+
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@ 
+	@echo "generate $@ success."
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+	@echo "compile $@ success"
+
+clean:
+	del -f $(ALL)
+	@echo "del '$(ALL)' success."
