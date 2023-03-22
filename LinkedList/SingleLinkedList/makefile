@@ -1,10 +1,22 @@
-FLAGS = -w -g 
+CFLAGS = -w -g
 
-single: Single_Main.o single_linked_list.o
-	gcc $(FLAGS) -o single.exe Single_Main.o single_linked_list.o
+CC = gcc 
 
-Single_Main.o: Single_Main.c single_linked_list.h
-	gcc $(FLAGS) -c Single_Main.c
+EXECUTABLE = Single
 
-single_linked_list.o: single_linked_list.c single_linked_list.h
-	gcc $(FLAGS) -c single_linked_list.c
+OBJECTS = Single_Main.o single_linked_list.o
+
+ALL = $(OBJECTS) $(EXECUTABLE).exe
+
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@ 
+	@echo "generate $@ success."
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+	@echo "compile $@ success"
+
+clean:
+	del -f $(ALL)
+	@echo "del '$(ALL)' success."
