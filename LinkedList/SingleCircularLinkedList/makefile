@@ -1,10 +1,22 @@
 CFLAGS = -w -g
 
-single_circular: Single_Circular_Main.o single_circular_linked_list.o
-	gcc $(CFLAGS) -o single_circular.exe Single_Circular_Main.o single_circular_linked_list.o
+CC = gcc 
 
-Single_Circular_Main.o: Single_Circular_Main.c single_circular_linked_list.h
-	gcc $(CFLAGS) -c Single_Circular_Main.c
+EXECUTABLE = SingleCircular
 
-single_circular_linked_list.o: single_circular_linked_list.c single_circular_linked_list.h
-	gcc $(CFLAGS) -c single_circular_linked_list.c
+OBJECTS = Single_Circular_Main.o single_circular_linked_list.o
+
+ALL = $(OBJECTS) $(EXECUTABLE).exe
+
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@ 
+	@echo "generate $@ success."
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+	@echo "compile $@ success"
+
+clean:
+	del -f $(ALL)
+	@echo "del '$(ALL)' success."
