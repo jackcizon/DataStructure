@@ -1,10 +1,22 @@
-CFLAGS = -W -g
+CFLAGS = -w -g
 
-Polynomial: Polynomial.o Polynomial_Main.o
-	gcc $(CFLAGS) -o Polynomial Polynomial.o Polynomial_Main.o
+CC = gcc 
 
-Polynomial_Main.o: Polynomial_Main.c Polynomial.h
-	gcc $(CFLAGS) -c Polynomial_Main.c
+EXECUTABLE = Polynomial
 
-Polynomial.o: Polynomial.c Polynomial.h
-	gcc $(CFLAGS) -c Polynomial.c
+OBJECTS = Polynomial.o Polynomial_Main.o
+
+ALL = $(OBJECTS) $(EXECUTABLE).exe
+
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@ 
+	@echo "generate $@ success."
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+	@echo "compile $@ success"
+
+clean:
+	del -f $(ALL)
+	@echo "del '$(ALL)' success."
