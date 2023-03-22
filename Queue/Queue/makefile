@@ -1,10 +1,23 @@
 CFLAGS = -w -g
 
-queue: Queue_Main.o queue.o
-	gcc $(CFLAGS) -o queue.exe Queue_Main.o queue.o
+CC = gcc 
 
-Queue_Main.o: Queue_Main.c queue.h
-	gcc $(CFLAGS) -c Queue_Main.c
+EXECUTABLE = Queue
 
-queue.o: queue.c queue.h
-	gcc $(CFLAGS) -c queue.c
+OBJECTS = Queue_Main.o queue.o
+
+ALL = $(OBJECTS) $(EXECUTABLE).exe
+
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@ 
+	@echo "generate $@ success."
+	del $(OBJECTS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+	@echo "compile $@ success"
+
+clean:
+	del -f $(ALL)
+	@echo "del '$(ALL)' success."
