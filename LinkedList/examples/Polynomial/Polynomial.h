@@ -1,3 +1,6 @@
+#ifndef POLYNOMIAL_H
+#define POLYNOMIAL_H
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
@@ -37,3 +40,6 @@ void divide(polynomial*, polynomial*, polynomial*);
 void inverse(polynomial*);
 
 void negate(polynomial*);
+
+
+#endif
