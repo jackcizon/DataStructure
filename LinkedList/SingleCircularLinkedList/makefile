@@ -12,6 +12,7 @@ ALL = $(OBJECTS) $(EXECUTABLE).exe
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $^ -o $@ 
 	@echo "generate $@ success."
+	del $(OBJECTS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
