@@ -1,16 +1,25 @@
 CFLAGS = -w -g
 
-objects = Vector_Main.o vector.o
+CC = gcc 
 
-vector: $(objects)
-	gcc $(CFLAGS) -o vector.exe $(objects)
+EXECUTABLE = vector
 
-Vector_Main.o: Vector_Main.c
-	gcc $(CFLAGS) -c Vector_Main.c
+OBJECTS = Vector_Main.o vector.o
 
-vector.o: vector.c
-	gcc $(CFLAGS) -c vector.c
+ALL = $(OBJECTS) $(EXECUTABLE).exe
+
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@ 
+	@echo "generate $@ success."
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+	@echo "compile $@ success"
 
 clean:
-	del vector.exe $(objects)
-	#in linux, use 'rm'	
+	del -f $(ALL)
+	@echo "del '$(ALL)' success."
+#in linux, use rm
+
+
