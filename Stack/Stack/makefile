@@ -1,10 +1,23 @@
 CFLAGS = -w -g
 
-stack: Stack_Main.o stack.o
-	gcc $(CFLAGS) -o stack.exe Stack_Main.o stack.o
+CC = gcc 
 
-Stack_Main.o: Stack_Main.c stack.h
-	gcc $(CFLAGS) -c Stack_Main.c
+EXECUTABLE = Stack
 
-stack.o: stack.c stack.h
-	gcc $(CFLAGS) -c stack.c
+OBJECTS = Stack_Main.o stack.o
+
+ALL = $(OBJECTS) $(EXECUTABLE).exe
+
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@ 
+	@echo "generate $@ success."
+	del $(OBJECTS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+	@echo "compile $@ success"
+
+clean:
+	del -f $(ALL)
+	@echo "del '$(ALL)' success."
