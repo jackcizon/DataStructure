@@ -33,7 +33,7 @@ typedef char* string;
     __pop__(T);\
     __peek__(T);\
     __traverse__(T);\
-    __clear__(T);
+    //__clear__(T);
 
 
 //Constructor
@@ -100,7 +100,7 @@ typedef char* string;
     }
 
 
-#define __clear__(T)\
+//#define __clear__(T)\
     void T##_clear(T##_stack* S){\
         assert(S->top);\
         while(!T##_empty(S)){\
