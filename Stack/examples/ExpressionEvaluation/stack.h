@@ -33,7 +33,8 @@ typedef char* string;
     __push__(T);\
     __pop__(T);\
     __peek__(T);\
-    __traverse__(T);
+    __traverse__(T);\
+    __clear__(T);
 
 
 //Constructor
@@ -93,11 +94,20 @@ typedef char* string;
         free(temp);\
     }
 
-//error
+
 #define __peek__(T)\
     T##_node* T##_peek(T##_stack* S){\
         assert(S && S->top);\
         return S->top;\
+    }
+
+
+#define __clear__(T)\
+    void T##_clear(T##_stack* S){\
+        assert(S->top);\
+        while(!T##_empty(S)){\
+            T##_pop(S);\
+        }\
     }
 
 
