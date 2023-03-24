@@ -14,6 +14,7 @@ void LineEdit(void)
     char c;
     while ((c = getchar()) != EOF) 
     {
+        //additional feature see details in ascii table.
         switch(c)
         {
             case '\n'://newline
