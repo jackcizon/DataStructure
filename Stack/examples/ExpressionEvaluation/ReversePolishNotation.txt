@@ -1,0 +1,42 @@
+infix to postfix:
+    infix[], postfix[], symbol
+    loop:
+        scan 
+            if operand:
+                print and store in operand[].
+        
+        symbol:
+            if '(':
+                push()
+
+            if ')':
+                while pop() != '(':
+                    postfix.append()
+
+            if '+':
+
+            if '-':
+
+            if '*':
+
+            if '/':
+
+            if '^':
+
+            while !empty() and precedence(stack->top) >= precedence(symbol):
+                postfix.append() = pop()
+
+            push(symbol)
+
+        default:
+            postfix.append() = symbol
+
+        
+postfix to result:
+    if operand:
+        push()
+
+    if operator() == op;
+        d1 = pop()
+        d2 = pop()
+        push(d2 op d1)
