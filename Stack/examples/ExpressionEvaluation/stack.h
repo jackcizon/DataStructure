@@ -85,7 +85,7 @@ typedef char* string;
 
 
 #define __pop__(T)\
-    T T##_pop(T##_stack* S, T* data){\
+    void T##_pop(T##_stack* S, T* data){\
         assert(S && S->top);\
         *data = S->top->data;\
         T##_node* temp = S->top;\
