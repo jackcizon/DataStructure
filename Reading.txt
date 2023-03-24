@@ -1,1 +1,0 @@
-optimize stack is in local machine , change all base on there.
