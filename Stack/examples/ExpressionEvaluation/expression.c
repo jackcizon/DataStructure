@@ -24,6 +24,7 @@ void InToPost(const char* infix, char* postfix)
         {
             switch (symbol)
             {
+                /*notes: i' not add '{} and []', if wanna add these, use switch to map to '()'*/
                 case '(':
                     char_push(S, symbol);
                     break;
@@ -64,6 +65,7 @@ void InToPost(const char* infix, char* postfix)
 
 int precedence(char symbol)
 {
+    //other operators not add, if want to add others, just add and check precedence.
     switch (symbol)
     {
     case '^':
