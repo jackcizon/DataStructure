@@ -1,7 +1,7 @@
 #include"heapstring.h"
 
 
-int main(int argc, char const *argv[])
+int main(int argc, const string argv[])
 {
 
     HeapStr* traget = NewHS("https://duckduckgo.com");
