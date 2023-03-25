@@ -1,4 +1,4 @@
-#include"heap_str.h"
+#include"heapstring.h"
 #include<string.h>
 #include<stdlib.h>
 #include<assert.h>
