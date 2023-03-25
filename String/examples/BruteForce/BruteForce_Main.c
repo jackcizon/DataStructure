@@ -9,5 +9,8 @@ int main(int argc, char const *argv[])
 
     printf("index : %d",BF_Index(traget, match));
 
+    free(traget);
+    free(match);
+    
     return 0;
 }
