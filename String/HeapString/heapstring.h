@@ -1,3 +1,7 @@
+#ifndef HEAPSTRING_H
+#define HEAPSTRING_H
+#endif
+
 #include<stdio.h>
 #include<stdbool.h>
 
