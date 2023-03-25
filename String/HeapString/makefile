@@ -4,7 +4,7 @@ CC = gcc
 
 EXECUTABLE = HeapString
 
-OBJECTS = heap_str.o Heap_Str_Main.o
+OBJECTS = heapstring.o Heap_Str_Main.o
 
 ALL = $(OBJECTS) $(EXECUTABLE).exe
 
