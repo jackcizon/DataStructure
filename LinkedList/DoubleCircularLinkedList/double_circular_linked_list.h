@@ -10,6 +10,8 @@
 #include<assert.h>
 
 
+#define pass NULL//or (void) 0, 0
+
 typedef char* string;
 
 
