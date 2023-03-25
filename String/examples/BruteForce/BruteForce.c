@@ -15,8 +15,8 @@ size_t BF_Index(HeapStr* target, HeapStr* match)
             }
             else
             {
+                i -= j;
                 j = 0;
-                i ++;
             }
         }
         if(j == Length(match))
