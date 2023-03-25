@@ -2,7 +2,6 @@
 #define VECTOR_H
 
 
-
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,6 +13,7 @@
 #include<assert.h>
 #include<stdarg.h>
 
+#define pass NULL//or (void) 0, 0
 
 #define vector_MIN_CAP 4
 
