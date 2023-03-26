@@ -1,8 +1,6 @@
 #ifndef HEAPSTRING_H
 #define HEAPSTRING_H
 
-#endif
-
 #include<stdio.h>
 #include<stdbool.h>
 
@@ -44,3 +42,5 @@ void Set(HeapStr* HS, size_t index, char ch);
 void Repalce(HeapStr* HS, size_t begin, string str);
 
 void Echo(HeapStr* HS);
+
+#endif
