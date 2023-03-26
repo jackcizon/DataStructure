@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(HeapString)
+
+# Add the executable target and specify the source files
+add_executable(HeapString Heap_Str_Main.c heapstring.c)
+
+# Add the include directories for the target, so that compiler can find header
+target_include_directories(HeapString PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+# Set the build type to Debug
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
+
