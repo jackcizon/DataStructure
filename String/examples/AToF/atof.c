@@ -19,7 +19,7 @@ double _atof(HeapStr* HS)
 
     //check sign
     int sign = (HS->str[i] == '-') ? -1 : 1;
-    i += (HS->str[i] == '-');
+    i += (HS->str[i] == '-');//if true i = 0, else i = 0
 
     //integer part
     int int_part = 0;
