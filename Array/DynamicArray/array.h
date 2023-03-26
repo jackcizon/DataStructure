@@ -1,3 +1,7 @@
+#ifndef ARRAY_H
+#define ARRAY_H
+
+
 #define array_INIT_CAPACITY 4
 
 
@@ -15,3 +19,6 @@ void set(array *, int, void *);
 void *get(array *, int);
 void delete(array *, int);
 void _free(array *);
+
+
+#endif
