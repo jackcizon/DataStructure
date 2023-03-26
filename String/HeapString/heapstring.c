@@ -148,7 +148,16 @@ void Delete(HeapStr* HS, size_t begin, size_t length)
 }
 
 
+void Append(HeapStr* HS, const string str)
+{
+    Insert(HS, Length(HS), str);
+}
 
+
+void Push(HeapStr* HS, const string str)
+{
+    Insert(HS, 0, str);
+}
 
 
 
