@@ -44,8 +44,8 @@ double _atof(HeapStr* HS)
 
     //fractional part
     double frac_part = 0.0;
-    if(HS->str[i] == '.')
-        i ++;
+    HS->str[i] == '.' ?
+        i ++ : pass;
 
     int power = -1;
     while(i < Length(HS))
