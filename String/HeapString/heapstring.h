@@ -44,4 +44,8 @@ void Repalce(HeapStr* HS, size_t begin, string str);
 
 void Echo(HeapStr* HS);
 
+void Append(HeapStr* HS, const string str);
+
+void Push(HeapStr* HS, const string str);
+
 #endif
