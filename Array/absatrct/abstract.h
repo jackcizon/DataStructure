@@ -1,3 +1,6 @@
+#ifndef ABSTRACT_H
+#define ABSTRACT_H
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -40,5 +43,5 @@ int total(array *v);
 
 void resize(void* new, int capacity);
 
-
+#endif
 
