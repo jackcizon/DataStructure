@@ -11,6 +11,8 @@
 
 typedef char* string;
 
+#define echo(str) puts(#str);
+
 
 #define PUBLIC
 #define PRIVATE static
