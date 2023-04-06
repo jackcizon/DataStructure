@@ -12,6 +12,8 @@
 
 typedef char* string;
 
+#define echo(str) puts(#str);
+
 
 #define typename(x)\
     _Generic((x), \
