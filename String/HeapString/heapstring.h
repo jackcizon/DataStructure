@@ -8,6 +8,8 @@
 
 typedef char* string;
 
+#define echo(str) puts(#str);
+
 typedef struct HeapStr
 {
     size_t len;
