@@ -18,9 +18,19 @@ int main(int argc, char** argv)
     HeapPush(H, 4);
     HeapPush(H, 9);
 
-    HeapPop(H);
+    const int size = H->size;
 
-    Traverse(H);    
+    int sort_arr[size] = {0}; 
 
+    for (size_t i = 0; i < 9; i++)
+    {
+        HeapPop(H, &sort_arr[i]);
+    }
+    
+    for (size_t i = 0; i < 9; i++)
+    {
+        printf("%d ", sort_arr[i]);
+    }
+    
     return 0;
 }
