@@ -20,7 +20,7 @@ int main(int argc, char** argv)
 
     const int size = H->size;
 
-    int sort_arr[size] = {0}; 
+    int* sort_arr = calloc(H->size, sizeof(int));
 
     for (size_t i = 0; i < 9; i++)
     {
