@@ -2,11 +2,11 @@ CFLAGS = -Wall -g
 
 CC = gcc 
 
-EXECUTABLE = main
+EXECUTABLE = main.exe
 
 OBJECTS = sparse_main.o sparse_matrix.o
 
-ALL = $(OBJECTS) $(EXECUTABLE).exe
+ALL = $(OBJECTS) $(EXECUTABLE)
 
 
 $(EXECUTABLE): $(OBJECTS)
