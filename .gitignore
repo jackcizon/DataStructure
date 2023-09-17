@@ -1,6 +1,7 @@
 # Ignore compiled binaries
 *.exe
 *.dll
+settings.json
 
 # Ignore logs and temporary files
 /logs/
