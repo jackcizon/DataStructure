@@ -11,9 +11,9 @@
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": true,
+            "externalConsole": false,// win setup true, wsl to false
             "MIMode": "gdb",
-            "miDebuggerPath": "D:\\cygwin64\\bin\\gdb.exe",
+            "miDebuggerPath": "/usr/bin/gdb",
             "preLaunchTask": "build"
         }
     ]
