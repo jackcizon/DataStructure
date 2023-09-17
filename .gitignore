@@ -1,0 +1,7 @@
+# Ignore compiled binaries
+*.exe
+*.dll
+
+# Ignore logs and temporary files
+/logs/
+/temp/

@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": 
+    [
+        {
+            "name": "C Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/main.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "D:\\cygwin64\\bin\\gdb.exe",
+            "preLaunchTask": "build"
+        }
+    ]
+}
