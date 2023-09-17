@@ -1,9 +1,9 @@
 sparse matrix
 
 win and linux has a little diff in .vscode
-also make changes, and check after rebase
-
-confilct will die after modify readme
 
 
-i will make another change
+if 'pull' first every time, no need to 'rebase',
+
+but if make changes and commit(maybe make confilcts), 
+//you need rename when pull and pull --continue
