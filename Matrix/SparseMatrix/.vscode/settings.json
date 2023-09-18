@@ -3,6 +3,7 @@
         "*.embeddedhtml": "html",
         "dir.h": "c",
         "features.h": "c",
-        "memory.h": "c"
+        "memory.h": "c",
+        "math.h": "c"
     }
 }
