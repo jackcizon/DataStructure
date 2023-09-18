@@ -30,16 +30,18 @@ function int main(int argc, char const *argv[])
     Sub(&sm, &sm1, &sm3);
     PrintMatrix(&sm3);
 
-    puts("after muling:");
+    
+    puts("after transposing:");
     Transpose(&sm, &sm4);
     PrintMatrix(&sm4);
 
-    puts("after transposing:");
+    puts("after muling:");
     Mul(&sm, &sm4, &sm5);
     PrintMatrix(&sm5);
 
     puts("after fast transposing:");
     FastTranspose(&sm, &sm6);
+    PrintMatrix(&sm6);
 
     puts("\npress enter to exit...\n");
     getchar();

@@ -195,7 +195,42 @@ function void Transpose(SMatrix* M, SMatrix* T)
 
 function void FastTranspose(SMatrix* M, SMatrix* T)
 {
-
+    int* numTermsInCol = (int*)calloc(M->nu, sizeof(int));
+    int* startOfCol = (int*)calloc(M->nu, sizeof(int));
+    
+    T->mu = M->nu;
+    T->nu = M->mu;
+    T->tu = M->tu;
+    
+    // Calculate the number of terms in each column of M,similar to bucket.
+    for (int k = 0; k < M->tu; k++)
+    {
+        numTermsInCol[M->data[k].j]++;
+    }
+    
+    // Calculate the starting position for each column in T
+    startOfCol[0] = 0;
+    for (int col = 1; col < M->nu; col++)
+    {
+        startOfCol[col] = startOfCol[col - 1] + numTermsInCol[col - 1];
+    }
+    
+    // Perform the transpose
+    for (int k = 0; k < M->tu; k++)
+    {
+        int col = M->data[k].j;
+        int pos = startOfCol[col];
+        
+        T->data[pos].i = M->data[k].j;
+        T->data[pos].j = M->data[k].i;
+        T->data[pos].e = M->data[k].e;
+        
+        startOfCol[col]++;
+    }
+    
+    free(numTermsInCol);
+    free(startOfCol);
 }
+
 
 
