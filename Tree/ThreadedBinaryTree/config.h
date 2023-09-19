@@ -14,3 +14,5 @@
 #define begin {
 #define end }
 #define function
+
+typedef char* string;
