@@ -1,0 +1,37 @@
+{
+    "tasks": 
+    [
+        {
+            "type": "shell",
+            "label": "build",
+            "command": "make",
+            "group":
+            {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$gcc"
+        },
+
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "make clean",
+            "group":
+            {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ],
+    "version": "2.0.0"
+}
+
+/*
+tasks: class -> []
+
+{type, label, group ...}: attribute -> key: val
+{command}: method -> key: val
+
+version : global const -> key: val
+*/

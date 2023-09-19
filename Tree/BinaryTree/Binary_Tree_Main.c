@@ -35,6 +35,9 @@ int main(int argc, const string argv[])
 
     printf("\nBT1. Len: %ld, Depth: %ld \n", Length(Root(BT1)), Depth(Root(BT1)));
 
+   printf("left child:%s", LeftChild(&BT1->root));
+
+
     Destroy(BT1);
     Destroy(BT2);
     

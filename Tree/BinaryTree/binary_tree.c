@@ -336,4 +336,25 @@ size_t Depth(node* parent)
     }
 }
 
-
+void* LeftChild(node** parent)
+{
+    if (*parent == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        return (*parent)->lchild->data;
+    }
+}
+void* RightChild(node** parent)
+{
+    if (parent == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        return (*parent)->rchild->data;
+    }
+}

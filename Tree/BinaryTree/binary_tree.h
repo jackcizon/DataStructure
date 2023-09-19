@@ -62,3 +62,7 @@ void* LowestCommonAncestor(BinaryTree* BT, void* data, void* data1, void* data2)
 size_t Depth(node* parent);
 
 size_t Length(node* parent);
+
+void* LeftChild(node** parent);
+
+void* RightChild(node** parent);
