@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": 
+    [
+        {
+            "name": "C Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/Stack_Main.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,// win setup true, wsl to false
+            "MIMode": "gdb",
+            "miDebuggerPath": "D:\\cygwin64\\bin\\gdb.exe",//win: D:\\cygwin64\\bin\\gdb.exe, linux: /usr/bin/gdb
+            "preLaunchTask": "build"
+        }
+    ]
+}

@@ -28,7 +28,7 @@ void ic_stack_ops(void)
 
     int_push(is, 3);
 
-    printf("\ntop data: %d\n", is->top->data);
+    printf("top data: %d\n", is->top->data);
 
     if(is->top->next == NULL)
     {
@@ -42,10 +42,12 @@ void ic_stack_ops(void)
     int_push(is, 4);
     int_push(is, 5);
 
+    int_clear(is);
 
-    printf("%d\n", is->top->data);
 
-    int_traverse(is);
+    //printf("%d\n", is->top->data);
+
+    //int_traverse(is);
 
     char_stack* cs = char_new();
     for (size_t i = 0; i < count; i++)
@@ -96,10 +98,15 @@ void df_ops(void)
 int main(int argc, char const *argv[])
 {
     ic_stack_ops();
+    puts("");
     
     string_ops();
+    puts("");
     
     df_ops();
+    puts("");
 
+    puts("press enter to exit...");
+    getchar();
     return 0;
 }
