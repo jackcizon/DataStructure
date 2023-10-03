@@ -13,6 +13,29 @@ stack(string);
 
 #define count 3
 
+
+void ic_stack_ops(void);
+void string_ops(void);
+void df_ops(void);
+
+
+int main(int argc, char const *argv[])
+{
+    ic_stack_ops();
+    puts("");
+    
+    string_ops();
+    puts("");
+    
+    df_ops();
+    puts("");
+
+    puts("press enter to exit...");
+    getchar();
+    return 0;
+}
+
+
 void ic_stack_ops(void)
 {
     int_stack* is = int_new();
@@ -90,23 +113,4 @@ void df_ops(void)
     double_pop(ds);
     double_pop(ds);
     double_traverse(ds);
-}
-
-
-
-
-int main(int argc, char const *argv[])
-{
-    ic_stack_ops();
-    puts("");
-    
-    string_ops();
-    puts("");
-    
-    df_ops();
-    puts("");
-
-    puts("press enter to exit...");
-    getchar();
-    return 0;
 }

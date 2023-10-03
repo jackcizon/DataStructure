@@ -8,6 +8,7 @@
 #include<stdio.h>
 #include<stdbool.h>
 #include<assert.h>
+#include"config.h"
 
 
 typedef char* string;
