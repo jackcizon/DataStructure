@@ -14,7 +14,7 @@ Dict* NewDict(size_t size)
 size_t Hash(const string key, size_t size)
 {
     size_t HashValue = 0;
-    for (size_t i = 0; i < key[i] != '\0'; i++)
+    for (size_t i = 0; key[i] != '\0'; i++)
     {
         HashValue += key[i] + HashValue * 31;
     }
@@ -26,7 +26,7 @@ void InsertEntry(Dict* D, const string key, const string value)
 {
     if(D->count == D->size)
     {
-        fprintf_s(stderr, "dict is full.\n");
+        fprintf(stderr, "dict is full.\n");
         exit(EXIT_FAILURE);
     }
 
@@ -34,16 +34,16 @@ void InsertEntry(Dict* D, const string key, const string value)
     if (E->key == NULL)
     {
         E->key = malloc(strlen(key) + 1);
-        strncpy_s(E->key, strlen(E->key) + 1, key, strlen(key) + 1);
+        strncpy(E->key, key, strlen(key) + 1);
         E->value = malloc(strlen(value) + 1);
-        strncpy_s(E->value, strlen(E->value) + 1, value, strlen(value) + 1);
+        strncpy(E->value, value, strlen(value) + 1);
         D->count += 1;
     }
     else if (strcmp(E->key, key) == 0)
     {
         free(E->value);
         E->value = malloc(strlen(value) + 1);
-        strncpy_s(E->value, strlen(E->value) + 1, value, strlen(value) + 1);
+        strncpy(E->value, value, strlen(value) + 1);
     }
     else
     {
@@ -94,7 +94,7 @@ void Copy(Dict* dest, Dict* src)
     dest->entries = malloc(dest->size * sizeof(Entry));
     if (dest->entries == NULL)
     {
-        fprintf_s(stderr, "Memory allocation failed.\n");
+        fprintf(stderr, "Memory allocation failed.\n");
         exit(EXIT_FAILURE);
     }
     for (int i = 0; i < dest->size; i++)
@@ -131,17 +131,17 @@ void Update(Dict* D, const string key, const string new_value)
     Entry* E = &(D->entries[Hash(key, D->size)]);
     if (E->key == NULL)
     {
-        fprintf_s(stderr, "key: '%s' does not exist.\n", key);
+        fprintf(stderr, "key: '%s' does not exist.\n", key);
     }
     else if (strcmp(E->key, key) == 0)
     {
         free(E->value);
         E->value = malloc(strlen(new_value) + 1);
-        strncpy_s(E->value, strlen(E->value) + 1, new_value, strlen(new_value) + 1);
+        strncpy(E->value, new_value, strlen(new_value) + 1);
     }
     else
     {
-        fprintf_s(stderr, "key: '%s' does not exist.\n", key);
+        fprintf(stderr, "key: '%s' does not exist.\n", key);
     }
 }
 

@@ -1,23 +1,23 @@
-CFLAGS = -w -g
+CFLAGS = -Wall -g
 
 CC = gcc 
 
-EXECUTABLE = Dict
+EXECUTABLE = dict_main.exe
 
 OBJECTS = dict_main.o dict.o
 
-ALL = $(OBJECTS) $(EXECUTABLE).exe
+ALL = $(OBJECTS) $(EXECUTABLE)
 
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $^ -o $@ 
 	@echo "generate $@ success."
-	del $(OBJECTS)
+	rm $(OBJECTS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 	@echo "compile $@ success"
 
 clean:
-	del -f $(ALL)
-	@echo "del '$(ALL)' success."
+	rm -f $(ALL)
+	@echo "rm '$(ALL)' success."
