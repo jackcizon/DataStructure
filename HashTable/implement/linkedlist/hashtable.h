@@ -1,5 +1,7 @@
 #pragma once
-#include"config.h"
+#include<config.h>
+#include<stddef.h>
+
 
 #define SIZE 100
 
@@ -21,18 +23,23 @@ typedef struct hashtable
 }
 hashtable;
 
-hashtable* newTable(size_t size);
+hashtable* NewTable(size_t size);
 
-void Hash(list* node, string key);
+size_t Hash(string key, size_t size);
 
-void Insert(hashtable* table, string key, string value);
+void Insert(hashtable* ht, string key, string value);
 
-void Delete(hashtable* table, string key);
+string Retrive(hashtable* ht, string key);
 
-void Traverse(hashtable* table);
+void Delete(hashtable* ht, string key);
 
-list* newNode(string key, string value);
+void Traverse(hashtable* ht);
 
+node* NewNode(string key, string value);
+
+void FreeNode(node* Node);
+
+void DestroyTable(hashtable** ht);
 
 
 

@@ -1,6 +1,7 @@
 CFLAGS = -Wall -g
+LDFLAGS = -lcunit  # Link with the CUnit library
 
-CC = gcc 
+CC = gcc
 
 EXECUTABLE = main.exe
 
@@ -8,9 +9,8 @@ OBJECTS = hashtable.o hashtable_main.o
 
 ALL = $(OBJECTS) $(EXECUTABLE)
 
-
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(CFLAGS) $^ -o $@ 
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)  # Link with CUnit library
 	@echo "generate $@ success."
 	rm $(OBJECTS)
 
