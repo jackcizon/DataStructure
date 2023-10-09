@@ -1,4 +1,5 @@
 #pragma once
+#include<stdio.h>
 
 #define eq ==
 #define ineq !=
@@ -18,5 +19,7 @@
 #define PRIVATE static
 #define true 1
 #define false 0
-
 typedef char* string;
+
+
+#define foreach(type, iter, array) for(type* iter = array; iter < (array) + sizeof(array) / sizeof(array[0]); iter++)
