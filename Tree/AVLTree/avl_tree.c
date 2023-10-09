@@ -32,30 +32,30 @@ int getBalanceFactor(Node* node) {
     return (node != NULL) ? (getHeight(node->left) - getHeight(node->right)) : 0;
 }
 
-Node* rightRotate(Node* y) {
-    Node* x = y->left;
-    Node* T2 = x->right;
+Node* rightRotate(Node* parent) {
+    Node* LC = parent->left;
+    Node* T2 = LC->right;
 
-    x->right = y;
-    y->left = T2;
+    LC->right = parent;
+    parent->left = T2;
 
-    y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
-    x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
+    parent->height = max(getHeight(parent->left), getHeight(parent->right)) + 1;
+    LC->height = max(getHeight(LC->left), getHeight(LC->right)) + 1;
 
-    return x;
+    return LC;
 }
 
-Node* leftRotate(Node* x) {
-    Node* y = x->right;
-    Node* T2 = y->left;
+Node* leftRotate(Node* parent) {
+    Node* RC = parent->right;
+    Node* T2 = RC->left;
 
-    y->left = x;
-    x->right = T2;
+    RC->left = parent;
+    parent->right = T2;
 
-    x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
-    y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
+    parent->height = max(getHeight(parent->left), getHeight(parent->right)) + 1;
+    RC->height = max(getHeight(RC->left), getHeight(RC->right)) + 1;
 
-    return y;
+    return RC;
 }
 
 Node* insert(Node* root, int key) {
