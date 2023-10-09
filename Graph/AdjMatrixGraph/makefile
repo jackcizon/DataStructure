@@ -2,17 +2,17 @@ CFLAGS = -w -g
 
 CC = gcc 
 
-EXECUTABLE = adjmatrix
+EXECUTABLE = adjmatrix.exe
 
 OBJECTS = Adj_Matrix_Main.o adjmatrix.o
 
-ALL = $(OBJECTS) $(EXECUTABLE).exe
+ALL = $(OBJECTS) $(EXECUTABLE)
 
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $^ -o $@ 
 	@echo "generate $@ success."
-	del $(OBJECTS)
+	rm $(OBJECTS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<

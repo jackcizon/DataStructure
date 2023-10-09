@@ -6,6 +6,7 @@ Graph* NewGraph(size_t Vertices, GraphType type)
     G->Vertices = Vertices;
     G->Arcs = 0;
     G->type = type;
+    //allocate mem to matrix
     G->matrix = malloc(Vertices * sizeof(int*));
     for (size_t i = 0; i < Vertices; i++)
     {
@@ -14,7 +15,7 @@ Graph* NewGraph(size_t Vertices, GraphType type)
     return G;
 }
 
-
+//time complexity O(1) 
 void AddEdge(Graph* G, size_t src, size_t dest, size_t weight)
 {
     G->matrix[src][dest] = weight;
@@ -25,7 +26,7 @@ void AddEdge(Graph* G, size_t src, size_t dest, size_t weight)
     G->Arcs += 1;
 }
 
-
+//time complexity O(1)
 void DeleteEdge(Graph* G, size_t src, size_t dest)
 {
     G->matrix[src][dest] = 0;
@@ -72,12 +73,14 @@ void Destroy(Graph* G)
 
 int* GetAdjVertices(Graph* G, int vertex, int* count)
 {
+    //array pointer to get adj_vertices, allocate the largest possible memory
     int* adjacent = malloc(G->Vertices * sizeof(int));
     *count = 0;
     for (size_t i = 0; i < G->Vertices; i++)
     {
-        //check columns
-        if (G->matrix[vertex][i] != 0)
+        //check columns weight
+        int weight = G->matrix[vertex][i];
+        if (weight != 0)
         {
             adjacent[*count] = i;
             *count += 1;
@@ -88,6 +91,7 @@ int* GetAdjVertices(Graph* G, int vertex, int* count)
             *count += 1;
         }
     }
+    // realloc mem
     adjacent = realloc(adjacent, *count * sizeof(int));
     return adjacent;
 }
