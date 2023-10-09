@@ -1,136 +1,183 @@
 #include"adjlist.h"
 
-
-Node* NewNode(int Dest, size_t weight)
-{
-    Node* new_node = malloc(sizeof(Node));
-    new_node->Dest = Dest;
-    new_node->weight = weight;
-    new_node->Next = NULL;
-    return new_node;
+// Function to create a new Node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
 }
 
-
-Graph* NewGraph(size_t V, bool Directed)
-{
-    Graph* G = malloc(sizeof *G);
-    G->V = V;
-    G->Directed = Directed;
-    G->List = malloc(sizeof(AdjList) * V);
-    for (size_t i = 0; i < V; i++)
+struct Graph* createGraph(size_t numVertices, enum GraphType type) {
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+    graph->numVertices = numVertices;
+    // allocate memory to adj_list
+    graph->array = (struct AdjList*)malloc(numVertices * sizeof(struct AdjList));
+    graph->graphType = type;
+    // init list->head
+    for (size_t i = 0; i < numVertices; ++i) 
     {
-        G->List[i].Label = 'A' + i;
-        G->List[i].Head = NULL;
+        // it is similar to a chain stack
+        graph->array[i].head = NULL;
+        //...->(null)
+        //  /\.
+        //  ||
+        // head
     }
-    return G;
+    return graph;
 }
 
+void addEdge(struct Graph* graph, int src, int dest) {
 
-void AddEdge(Graph* G, int src, int dest, size_t weight)
-{
-    Node* new_node = NewNode(dest, weight);
-    new_node->Next = G->List->Head;
-    G->List[src].Head = new_node;
-    if(!G->Directed)
-    {
-        new_node = NewNode(src, weight);
-        new_node->Next = G->List[dest].Head;
-        G->List[dest].Head = new_node;
+    struct Node* newNode = createNode(dest);
+    newNode->next = graph->array[src].head;
+    graph->array[src].head = newNode;
+
+    if (graph->graphType == Undirected) {
+        // Add an edge from dest to src for undirected graphs
+        newNode = createNode(src);
+        newNode->next = graph->array[dest].head;
+        graph->array[dest].head = newNode;
+        //...->newnode->null
+        //  /\.
+        //  ||
+        //  head
     }
 }
 
+// Function to delete an edge between two vertices
+void deleteEdge(struct Graph* graph, int src, int dest) {
+    struct Node* currentNode = graph->array[src].head;
+    struct Node* prevNode = NULL;
 
-void DeleteEdge(Graph* G, int src, int dest)
-{
-    Node* temp = G->List[src].Head;
-    Node* prev = NULL;
-    while (temp != NULL)
+    while (currentNode != NULL && currentNode->data != dest) 
     {
-        //if found
-        if (temp->Dest == dest)
-        {   //if found is src.head
-            if (prev == NULL)
-            {
-                G->List[src].Head = temp->Next;
+        prevNode = currentNode;
+        currentNode = currentNode->next;
+    }
+
+    if (currentNode == NULL) 
+    {
+        // if list is empty
+        return;
+    }
+    if (prevNode == NULL) 
+    {
+        // edge to be deleted is the head of the list
+        graph->array[src].head = currentNode->next;
+    } 
+    else 
+    {
+        prevNode->next = currentNode->next;
+    }
+    free(currentNode);
+    if (graph->graphType == Undirected) {
+        // Remove the edge from dest to src for undirected graphs
+        currentNode = graph->array[dest].head;
+        prevNode = NULL;
+
+        while (currentNode != NULL && currentNode->data != src) {
+            prevNode = currentNode;
+            currentNode = currentNode->next;
+        }
+        if (currentNode == NULL) 
+        {
+            // Edge does not exist
+            return;
+        }
+        if (prevNode == NULL) 
+        {
+            // Edge to be deleted is the head of the list
+            graph->array[dest].head = currentNode->next;
+        } 
+        else 
+        {
+            prevNode->next = currentNode->next;
+        }
+        free(currentNode);
+    }
+}
+
+// Function to remove a vertex and all its incident edges from the graph
+void removeVertex(struct Graph* graph, size_t vertex) {
+    if (vertex < 0 || vertex >= graph->numVertices) {
+        // Invalid vertex index
+        return;
+    }
+
+    // Free the memory for the adjacency list of the removed vertex
+    struct Node* currentNode = graph->array[vertex].head;
+    
+    while (currentNode != NULL) {
+        struct Node* temp = currentNode;
+        currentNode = currentNode->next;
+        free(temp);
+    }
+
+    // Set the head of the adjacency list for the removed vertex to NULL
+    graph->array[vertex].head = NULL;
+
+    // Remove edges to the removed vertex from other vertices' adjacency lists
+    for (int v = 0; v < graph->numVertices; ++v) {
+        if (v != vertex) {
+            struct Node* prevNode = NULL;
+            struct Node* current = graph->array[v].head;
+
+            while (current != NULL) {
+                if (current->data == vertex) {
+                    if (prevNode == NULL) {
+                        // The edge is at the head of the list
+                        graph->array[v].head = current->next;
+                    } else {
+                        prevNode->next = current->next;
+                    }
+
+                    free(current);
+                    break;
+                }
+
+                prevNode = current;
+                current = current->next;
             }
-            //other location
-            else
-            {
-                prev->Next = temp->Next;
-            }
-            //free
-            Node* to_delete = temp;
-            temp = temp->Next;
-            free(to_delete);
-        }
-        //if not found, go next
-        else
-        {
-            prev = temp;
-            temp = temp->Next;
         }
     }
 }
 
 
+// Function to print the adjacency list representation of the graph
+void printGraph(struct Graph* graph) {
+    printf("Graph Type: %s\n", (graph->graphType == Directed) ? "Directed" : "Undirected");
+    for (int v = 0; v < graph->numVertices; ++v) {
+        struct Node* currentNode = graph->array[v].head;
+        printf("Adjacency list of vertex %d: ", v);//this is vertex data, not vertex->head, and no link about v and vertex, if you wana optimize, implement foreach() to loop all vertices
 
-void DeleteVertex(Graph* G, int vertex)
-{
-    for (size_t i = 0; i < G->V; i++)
-    {
-        DeleteEdge(G, i, vertex);
+        while (currentNode) {
+            printf("%d -> ", currentNode->data);
+            currentNode = currentNode->next;
+        }
+
+        printf("NULL\n");
     }
 }
 
 
-void DFS(Graph* G, int v, bool* visited)
-{
-    visited[v] = true;
-    printf("%c ", G->List[v].Label);
+// Function to destroy the graph and free all memory
+void destroyGraph(struct Graph* graph) {
+    if (graph == NULL) {
+        return;  // No need to destroy if the graph is NULL
+    }
 
-    Node* adjNode = G->List[v].Head;
-    while (adjNode != NULL)
-    {
-        int dest = adjNode->Dest;
-        if (!visited[dest])
-        {
-            DFS(G, dest, visited);
+    for (int v = 0; v < graph->numVertices; ++v) {
+        struct Node* currentNode = graph->array[v].head;
+        while (currentNode != NULL) {
+            struct Node* temp = currentNode;
+            currentNode = currentNode->next;
+            free(temp);
         }
-        adjNode = adjNode->Next;
-    }
-}
-
-void DFSTraversal(Graph* G)
-{
-    bool visited[G->V];
-    for (int i = 0; i < G->V; i++)
-    {
-        visited[i] = false;
+        graph->array[v].head = NULL; // Set the head to NULL after freeing the nodes
     }
 
-    for (int i = 0; i < G->V; i++)
-    {
-        if (!visited[i])
-        {
-            DFS(G, i, visited);
-        }
-    }
-}
-
-
-void FreeGraph(Graph* G)
-{
-    for (size_t i = 0; i < G->V; i++)
-    {
-
-        Node* temp = G->List[i].Head;
-        while (temp != NULL)
-        {
-            Node* to_delete = temp;
-            temp = temp->Next;
-            free(to_delete);
-        }
-        G->List[i].Head = NULL;
-    }
+    free(graph->array); // Free the adjacency list array
+    free(graph); // Free the graph itself
 }
 

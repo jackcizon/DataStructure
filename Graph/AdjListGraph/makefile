@@ -2,17 +2,17 @@ CFLAGS = -w -g
 
 CC = gcc 
 
-EXECUTABLE = adjlist
+EXECUTABLE = adjlist.exe
 
 OBJECTS = Adj_List_Main.o adjlist.o
 
-ALL = $(OBJECTS) $(EXECUTABLE).exe
+ALL = $(OBJECTS) $(EXECUTABLE)
 
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $^ -o $@ 
 	@echo "generate $@ success."
-	del $(OBJECTS)
+	rm $(OBJECTS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<

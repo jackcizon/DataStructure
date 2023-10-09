@@ -2,42 +2,33 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct Node
-{
-    int Dest;
-    size_t weight;
-    struct Node* Next;
-}
-Node;
+enum GraphType {
+    Directed,
+    Undirected
+};
 
-typedef struct AdjList
-{
-    char Label;
-    Node *Head;
-} AdjList;
+struct Node {
+    int data;
+    struct Node* next;
+};
 
-typedef struct Graph
-{
-    size_t V;
-    AdjList* List;
-    bool Directed;
-} Graph;
+// Structure to represent the adjacency list for a vertex
+struct AdjList {
+    struct Node* head;
+};
 
-
-Node* NewNode(int Dest, size_t weight);
-
-Graph* NewGraph(size_t V, bool Directed);
-
-void AddEdge(Graph* G, int src, int dest, size_t weight);
-
-void DeleteEdge(Graph* G, int src, int dest);
-
-void DeleteVertex(Graph* G, int vertex);
-
-void DFS(Graph* G, int v, bool* visited);
-
-void DFSTraversal(Graph* G);
-
-void FreeGraph(Graph* G);
+// Structure to represent the graph
+struct Graph {
+    size_t numVertices;
+    struct AdjList* array;
+    enum GraphType graphType;
+};
 
 
+struct Node* createNode(int data);
+struct Graph* createGraph(size_t numVertices, enum GraphType type);
+void addEdge(struct Graph* graph, int src, int dest);
+void deleteEdge(struct Graph* graph, int src, int dest);
+void removeVertex(struct Graph* graph, size_t vertex);
+void printGraph(struct Graph* graph);
+void destroyGraph(struct Graph* graph);

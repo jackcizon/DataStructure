@@ -1,28 +1,33 @@
 #include"adjlist.h"
 
 
-int main(int argc, char const *argv[])
+
+int main(int argc, char* argv[]) 
 {
-    size_t V = 5;
-    bool Directed = true;
+    struct Graph* graph = createGraph(5, Directed);
 
-    Graph* G = NewGraph(V, Directed);
+    addEdge(graph, 0, 1);
+    addEdge(graph, 0, 4);
+    addEdge(graph, 1, 2);
+    addEdge(graph, 1, 3);
+    addEdge(graph, 1, 4);
+    addEdge(graph, 2, 3);
+    addEdge(graph, 3, 4);
 
-    AddEdge(G, 0, 1, 10);
-    AddEdge(G, 0, 4, 20);
-    AddEdge(G, 1, 2, 30);
-    AddEdge(G, 1, 3, 40);
-    AddEdge(G, 1, 4, 50);
-    AddEdge(G, 2, 3, 60);
-    AddEdge(G, 3, 4, 70);
-    DeleteEdge(G, 1, 2);
-    DeleteVertex(G, 3);
+    printf("Original Graph:\n");
+    printGraph(graph);
 
-    DFSTraversal(G);
+    // Delete an edge
+    deleteEdge(graph, 1, 3);
 
-    //FreeGraph(G);
-    //may be cycle , and jump into a cycle, and re-free,
-    free(G);
+    printf("\nGraph after deleting edge (1, 3):\n");
+    printGraph(graph);
+
+    // Remove a vertex
+    removeVertex(graph, 2);
+
+    printf("\nGraph after removing vertex 2:\n");
+    printGraph(graph);
 
     return 0;
 }
