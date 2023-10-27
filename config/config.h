@@ -17,6 +17,7 @@
 #define function
 #define PUBLIC
 #define PRIVATE static
+#define out
 #define true 1
 #define false 0
 typedef char* string;
