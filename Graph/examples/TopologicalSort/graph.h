@@ -8,5 +8,5 @@ typedef struct graph
 } graph;
 
 graph* NewGraph(int Vertices);
-
 void AddEdge(graph* g, int src, int dest);
+void FreeGraph(graph* g);

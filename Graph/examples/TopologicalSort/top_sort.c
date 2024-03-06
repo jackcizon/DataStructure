@@ -24,6 +24,8 @@ int main(int argc, char const *argv[])
     AddEdge(graph, 3, 1);
 
     top_sort(graph);
+    
+    FreeGraph(graph);
     return 0;
 }
 

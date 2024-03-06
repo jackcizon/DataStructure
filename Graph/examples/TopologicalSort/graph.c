@@ -13,3 +13,14 @@ graph* NewGraph(int Vertices) {
 void AddEdge(graph* g, int src, int dest) {
     g->matrix[src][dest] = 1;
 }
+
+void FreeGraph(graph* g)
+{
+    for (int i = 0; i < g->vertices; i++)
+    {
+        free(g->matrix[i]);
+    }
+
+    free(g->matrix);
+    free(g);
+}
