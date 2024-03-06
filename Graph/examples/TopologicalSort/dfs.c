@@ -4,8 +4,6 @@
 
 // for undirected graph
 
-#define MAX_VERTICES 20
-
 typedef struct graph {
     int** matrix;
     int Vertices;
