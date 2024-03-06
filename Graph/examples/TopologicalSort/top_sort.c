@@ -32,6 +32,7 @@ void top_sort_util(graph* g, int vertex_src, int* visited, int* stack, int* stac
         }
     }
 
+    // push vertex into stack
     stack[(*stack_index)++] = vertex_src;
 }
 
@@ -51,6 +52,7 @@ void top_sort(graph* g)
     }
     
     printf("Topological Sort Order: ");
+    // pop stack values
     for (int i = g->Vertices - 1; i >= 0; i--)
     {
         printf("%d ", stack[i]);
