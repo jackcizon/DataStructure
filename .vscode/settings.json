@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.embeddedhtml": "html",
-        "config.h": "c"
+        "config.h": "c",
+        "graph.h": "c"
     }
 }
