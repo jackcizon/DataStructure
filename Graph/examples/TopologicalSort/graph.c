@@ -12,5 +12,4 @@ graph* NewGraph(int Vertices) {
 
 void AddEdge(graph* g, int src, int dest) {
     g->matrix[src][dest] = 1;
-    g->matrix[dest][src] = 1;
 }
