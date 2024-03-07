@@ -1,3 +1,27 @@
+/**
+ * @file kruskal.c
+ * @details Kruskal's algorithm is a greedy algorithm used to find the 
+ * minimum spanning tree (MST) of a connected, undirected graph. 
+ * The minimum spanning tree of a graph is a subgraph that includes all the vertices
+ *  of the graph and is a tree (i.e., it has no cycles), while minimizing 
+ * the sum of the weights (or costs) of the edges.
+ * 
+ * The steps of Kruskal's algorithm are as follows:
+ *      1. Sort all the edges in non-decreasing order of their weights.
+ *      2 .Initialize an empty graph (the minimum spanning tree) and a disjoint 
+ * set data structure to keep track of the connected components.
+ *      3. Iterate through the sorted edges. For each edge:
+ *      4. If including the edge forms a cycle in the current MST, discard it.
+ *      5. Otherwise, include the edge in the MST and unite the sets of the vertices connected by the edge.
+ *      6. Repeat until all vertices are connected or until you have n-1 edges in the MST 
+ * (where n is the number of vertices in the original graph).
+ *  By the end of the algorithm, you'll have constructed a minimum spanning tree that connects all 
+ * the vertices in the original graph with the minimum total weight.
+ * 
+ *Understanding Kruskal's algorithm involves grasping concepts such as sorting, disjoint set 
+ * data structures (Union-Find), and the logic behind choosing edges without forming cycles. 
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
