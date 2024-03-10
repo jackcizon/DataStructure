@@ -1,26 +1,22 @@
-#include<stdlib.h>
-#include<stdio.h>
-#include<stdbool.h>
-#include<assert.h>
-#include<math.h>
+#include <stdio.h>
+#include <stdlib.h>
 
+typedef struct {
+    int *array;
+    int capacity;
+    int size;
+} MinHeap;
 
-typedef struct Heap
-{
-    int* data;
-    size_t size;
-    size_t capacity;
-}
-Heap;
-
-Heap* NewHeap(size_t capacity);
-
-void Swap(int* a, int* b);
-
-void HeapPush(Heap* H, int value);
-
-void Heapify(Heap* H, int root);
-
-void HeapPop(Heap* H);
-
-void Traverse(Heap* H);
+int getParent(int child);
+int getLeftChild(int parent);
+int getRightChild(int parent);
+MinHeap* createMinHeap(int capacity);
+void swap(int *a, int *b);
+void heapifyUp(MinHeap *heap, int child);
+void heapifyDown(MinHeap *heap, int parent);
+void insert(MinHeap *heap, int value);
+int extractMin(MinHeap *heap);
+int getMin(MinHeap* heap);
+void printHeap(MinHeap *heap);
+int* heapSort(MinHeap* heap);
+int getHeapSize(MinHeap* heap);

@@ -1,88 +1,133 @@
 #include"min_heap.h"
 
-
-Heap* NewHeap(size_t capacity)
+int getParent(int child)
 {
-    Heap* heap = (Heap*)malloc(sizeof(Heap));
-    heap->data = (int*)malloc(capacity * sizeof(int));
-    heap->size = 0;
+    return (child - 1) / 2;
+}
+
+int getLeftChild(int parent)
+{
+    return parent * 2 + 1;
+}
+
+int getRightChild(int parent)
+{
+    return parent * 2 + 2;
+}
+
+MinHeap* createMinHeap(int capacity)
+{
+    MinHeap *heap = (MinHeap*)malloc(sizeof(MinHeap));
     heap->capacity = capacity;
+    heap->size = 0;
+    heap->array = (int*)malloc(heap->capacity * sizeof(int));
     return heap;
 }
 
-
-void Swap(int* a, int* b)
+void swap(int *a, int *b)
 {
     int temp = *a;
     *a = *b;
     *b = temp;
 }
 
-
-void Heapify(Heap* H, int root)
+void heapifyUp(MinHeap *heap, int child)
 {
-    int smallest = root;
-    int left = 2 * root + 1;
-    int right = 2 * root + 2;
-
-    if (left < H->size && H->data[left] < H->data[smallest])
-    {
-        smallest = left;
-    }
-    if (right < H->size && H->data[right] < H->data[smallest])
-    {
-        smallest = right;
-    }
-
-    if (smallest != root) {
-        Swap(&H->data[root], &H->data[smallest]);
-
-        // Recursively heapify the affected subtree
-        Heapify(H, smallest);
+    int parent = getParent(child);
+    while (child > 0 && heap->array[child] < heap->array[parent]) {
+        swap(&heap->array[child], &heap->array[parent]);
+        child = parent;
+        parent = getParent(child);
     }
 }
 
-
-void HeapPush(Heap* H, int value)
+void heapifyDown(MinHeap *heap, int parent)
 {
-    if (H->size == H->capacity)
-    {
-        H->capacity *= 2;
-        H->data = realloc(H->data, sizeof(int) * H->capacity);
-    }
+    int smallest = parent;
+    int leftChild = getLeftChild(parent);
+    int rightChild = getRightChild(parent);
 
-    H->data[H->size] = value;
-    H->size += 1;
+    if (leftChild < getHeapSize(heap) && heap->array[leftChild] < heap->array[smallest])
+        smallest = leftChild;
+    if (rightChild < getHeapSize(heap) && heap->array[rightChild] < heap->array[smallest])
+        smallest = rightChild;
 
-    int index = H->size - 1;
-    while (index > 0 && H->data[index] < H->data[(index - 1) / 2]/*if data.index < parent(index)*/)
-    {
-        Swap(&H->data[index], &H->data[(index - 1) / 2]);
-        //get the parent
-        index = (index - 1) / 2;
+    if (smallest != parent) {
+        swap(&heap->array[parent], &heap->array[smallest]);
+        heapifyDown(heap, smallest);
     }
 }
 
-
-void HeapPop(Heap* H)
+// push val, re-heapify up
+void insert(MinHeap *heap, int value)
 {
-    if (H->size == 0)
-    {
-        fprintf(stderr, "Heap size = %d!\n", H->size);
-        exit(EXIT_FAILURE);
+    if (getHeapSize(heap) == heap->capacity) {
+        heap->capacity *= 2;
+        heap->array = (int*)realloc(heap->array, heap->capacity * sizeof(int));
     }
-
-    Swap(&H->data[0], &H->data[H->size - 1]);
-    H->size--;
-
-    Heapify(H, 0);
+    heap->array[getHeapSize(heap)] = value;
+    heap->size++;
+    // re-heapify, update min-heap Attributes
+    heapifyUp(heap, getHeapSize(heap) - 1);
 }
 
-
-void Traverse(Heap* H)
+// pop val, re-heapify down
+int extractMin(MinHeap *heap)
 {
-    for (size_t i = 0; i < H->size; i++)
-    {
-        printf("%d ", H->data[i]);
+    if (getHeapSize(heap) == 0) {
+        printf("Heap is empty.\n");
+        return -1;
     }
+
+    // the min val in min heap is locate in index 0
+    int min = getMin(heap);
+    heap->array[0] = heap->array[getHeapSize(heap) - 1];
+    heap->size--;
+    // re-heapify, update min-heap Attributes
+    heapifyDown(heap, 0);
+
+    return min;
+}
+
+int getMin(MinHeap* heap)
+{
+    if (getHeapSize(heap) == 0) {
+        printf("Heap is empty.\n");
+        return -1;
+    }
+
+    // Assume that the heap has been updated to the latest
+    return heap->array[0];
+}
+
+void printHeap(MinHeap *heap)
+{
+    printf("Heap elements: ");
+    for (int i = 0; i < getHeapSize(heap); i++) {
+        printf("%d ", heap->array[i]);
+    }
+    printf("\n");
+}
+
+int* heapSort(MinHeap* heap)
+{
+    int* array = (int*)calloc(getHeapSize(heap), sizeof(int));
+    int init_size = getHeapSize(heap);
+    
+    for (int i = 0; i < init_size; i++)
+    {
+        array[i] = extractMin(heap);   
+    }
+
+    for (int i = 0; i < init_size; i++)
+    {
+        insert(heap, array[i]);
+    }
+    
+    return array;
+}
+
+int getHeapSize(MinHeap* heap)
+{
+    return heap->size;
 }

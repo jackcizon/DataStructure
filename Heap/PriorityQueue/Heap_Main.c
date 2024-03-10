@@ -2,35 +2,30 @@
 
 int main(int argc, char** argv)
 {
-    Heap* H = NewHeap(5);
+    MinHeap *heap = createMinHeap(10);
 
-    int arr[] = {1, 2, 4, 2, -1};
+    insert(heap, 10);
+    insert(heap, 7);
+    insert(heap, 11);
+    insert(heap, 5);
+    insert(heap, 9);
+    insert(heap, 1);
 
-    for (size_t i = 0; i < sizeof(arr)/sizeof(arr[0]); i++)
-    {
-        HeapPush(H, arr[i]);
-    }
+    printf("the min heap's min val: %d\n", getMin(heap));
+    printHeap(heap);
+    int init_size = heap->size;
+    int* array = heapSort(heap);
     
-
-    HeapPush(H, 10);
-    HeapPush(H, 1);
-    HeapPush(H, 7);
-    HeapPush(H, 4);
-    HeapPush(H, 9);
-
-    const int size = H->size;
-
-    int* sort_arr = calloc(H->size, sizeof(int));
-
-    for (size_t i = 0; i < 9; i++)
+    for (int i = 0; i < init_size; i++)
     {
-        HeapPop(H, &sort_arr[i]);
+        printf("%d ", array[i]);
     }
-    
-    for (size_t i = 0; i < 9; i++)
-    {
-        printf("%d ", sort_arr[i]);
-    }
-    
+    puts("");
+    printHeap(heap);
+
+    free(array);
+    free(heap->array);
+    free(heap);
+
     return 0;
 }

@@ -2,22 +2,22 @@ CFLAGS = -w -g
 
 CC = gcc 
 
-EXECUTABLE = min_heap
+EXECUTABLE = min_heap.exe
 
 OBJECTS = Heap_Main.o min_heap.o
 
-ALL = $(OBJECTS) $(EXECUTABLE).exe
+ALL = $(OBJECTS) $(EXECUTABLE)
 
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $^ -o $@ 
 	@echo "generate $@ success."
-	del $(OBJECTS)
+	rm $(OBJECTS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 	@echo "compile $@ success"
 
 clean:
-	del -f $(ALL)
-	@echo "del '$(ALL)' success."
+	rm -f $(ALL)
+	@echo "rm '$(ALL)' success."
