@@ -36,6 +36,7 @@ int main() {
     printf("After deleting %d:\n", deleteKey);
     printTree(root);
     printf("\n");
+    printf("height:%d", root->height);
 
     return 0;
 }

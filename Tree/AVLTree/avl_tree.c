@@ -6,7 +6,7 @@
 
 AVLTree NewAVLTree(void)
 {
-    AVLTree avl_tree = (AVLTree*)malloc(sizeof(AVLTree));
+    AVLTree avl_tree = (AVLTree)malloc(sizeof *avl_tree);
     avl_tree = NULL;
     return avl_tree;
 }
