@@ -32,6 +32,37 @@ int getBalanceFactor(Node* node) {
     return (node != NULL) ? (getHeight(node->left) - getHeight(node->right)) : 0;
 }
 
+/**
+ * @brief rightRotate
+ * @brief avl tree satisfies lc <= parent <= rc
+ * @param parent 
+ * @return Node* 
+ * 
+ * @details
+ * 
+ *       A                            P ---> A
+ *     /   \        ll insert              /   \
+ *    B    AR   --------------->  LC ---> B    AR
+ *  /  \      (insert after b's BL)     /  \  
+ * BL  BR                              BL  BR  <--- T2
+ *                                    /
+ *                                   i
+ * BL < B < BR < A < AR       i < BL < B < BR < A < AR
+ * 
+ * after inserting, tree is not balnaced,
+ * because i < BL < B, so i and BL still in B's left
+ * because A > B, so A is B's rc
+ * because B < BR < A, so A's lc is BR
+ * 
+ * after rotating:
+ *           B
+ *         /   \
+ *        BL   A
+ *       /   /   \ 
+ *      i   BR   AR
+ * 
+ * tree is balanced
+ */
 Node* rightRotate(Node* parent) {
     Node* LC = parent->left;
     Node* T2 = LC->right;
@@ -71,17 +102,21 @@ Node* insert(Node* root, int key) {
 
     int balance = getBalanceFactor(root);
 
+    // LL rotate
     if (balance > 1 && key < root->left->key)
         return rightRotate(root);
 
+    // RR
     if (balance < -1 && key > root->right->key)
         return leftRotate(root);
 
+    // LR
     if (balance > 1 && key > root->left->key) {
         root->left = leftRotate(root->left);
         return rightRotate(root);
     }
 
+    // RL
     if (balance < -1 && key < root->right->key) {
         root->right = rightRotate(root->right);
         return leftRotate(root);
