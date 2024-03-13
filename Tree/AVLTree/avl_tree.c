@@ -32,6 +32,32 @@ int getBalanceFactor(Node* node) {
     return (node != NULL) ? (getHeight(node->left) - getHeight(node->right)) : 0;
 }
 
+Node* updateBalanceFactor(int balance, Node* root)
+{
+    // LL rotate
+    if (balance > 1 && getBalanceFactor(root->left) >= 0)
+        return rightRotate(root);
+
+    // RR
+    if (balance < -1 && getBalanceFactor(root->right) <= 0)
+        return leftRotate(root);
+
+    // LR
+    if (balance > 1 && getBalanceFactor(root->left) < 0) {
+        root->left = leftRotate(root->left);
+        return rightRotate(root);
+    }
+
+    // RL
+    if (balance < -1 && getBalanceFactor(root->right) > 0) {
+        root->right = rightRotate(root->right);
+        return leftRotate(root);
+    }
+
+    // all balanced
+    return root;
+}
+
 /**
  * @brief rightRotate
  * @brief avl tree satisfies lc <= parent <= rc
@@ -101,28 +127,8 @@ Node* insert(Node* root, int key) {
     root->height = max(getHeight(root->left), getHeight(root->right)) + 1;
 
     int balance = getBalanceFactor(root);
-
-    // LL rotate
-    if (balance > 1 && key < root->left->key)
-        return rightRotate(root);
-
-    // RR
-    if (balance < -1 && key > root->right->key)
-        return leftRotate(root);
-
-    // LR
-    if (balance > 1 && key > root->left->key) {
-        root->left = leftRotate(root->left);
-        return rightRotate(root);
-    }
-
-    // RL
-    if (balance < -1 && key < root->right->key) {
-        root->right = rightRotate(root->right);
-        return leftRotate(root);
-    }
-
-    return root;
+    
+    return updateBalanceFactor(balance, root);
 }
 
 Node* minValueNode(Node* node) {
@@ -163,23 +169,7 @@ Node* deleteNode(Node* root, int key) {
 
     int balance = getBalanceFactor(root);
 
-    if (balance > 1 && getBalanceFactor(root->left) >= 0)
-        return rightRotate(root);
-
-    if (balance < -1 && getBalanceFactor(root->right) <= 0)
-        return leftRotate(root);
-
-    if (balance > 1 && getBalanceFactor(root->left) < 0) {
-        root->left = leftRotate(root->left);
-        return rightRotate(root);
-    }
-
-    if (balance < -1 && getBalanceFactor(root->right) > 0) {
-        root->right = rightRotate(root->right);
-        return leftRotate(root);
-    }
-
-    return root;
+    return updateBalanceFactor(balance, root);
 }
 
 void printTree(Node* root) {
@@ -188,6 +178,14 @@ void printTree(Node* root) {
         printTree(root->left);
         printTree(root->right);
     }
+    // before deleting:
+    /**
+     *            50 
+     *     25             75
+     *   15  35      60        120
+     * 10          68  68    90     125
+     *                   83   100   
+     */                
 }
 
 Node* search(Node* root, int key) {

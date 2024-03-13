@@ -26,3 +26,4 @@ Node* minValueNode(Node* node);
 Node* deleteNode(Node* root, int key);
 void printTree(Node* root);
 Node* search(Node* root, int key);
+Node* updateBalanceFactor(int balance, Node* root);
