@@ -3,13 +3,14 @@
 //failure function, partial match table, prefix function
 //len(perfix) = len(match.str), and this prefix function
 //or table describe how to move if not match
+// i will not backtrack to enable matching performance.
 
 
 //consider pattren(match) "ABCDABD",
 //the perfix function for this string is:
 
-//  A B C D A B D
-//  0 0 0 0 1 2 0
+// pattern         => abaabc
+// prefix(or next) => 001120   
 
 //notes, the first entry always 0, beacuse a string
 //start has no *proper* prefix.
@@ -81,25 +82,8 @@ int KMPMatch(HeapStr* target, HeapStr* match)
 
     int j = 0;
 /*********************************
-    //traget:  A B C D A B D
-    //         0 0 0 0 1 2 0
-    //match    A B D
-                   /\
-                   ||
-                    j = 2, i = 2, and then 'C' and 'D' not match, 
-                    jump while loop, and j = prefix[1] = 0, now j = 0, i = 2
-now:
-    A B C D A B D
-        A B D      , this step only i ++, i = 3. and to next for loop, only O(1), because not scan
-
-    A B C D A B D
-          A B D   , this also i ++, i = 4, j = 0, O(1).
-
-    A B C D A B D
-            A B D ,i = 4, match , j ++, j = 1, i++, i = 5
-                    i = 5, j > 0, match , j = 2, i = 6
-                    i = 6 , match , j = 3, i = len, end
-                
+    //traget:  abaabaabcabaabc         
+    //match    abaabc
 *********************************/
 
     for (int i = 0; i < target_len; i++)
